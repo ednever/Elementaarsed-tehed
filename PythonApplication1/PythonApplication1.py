@@ -1,23 +1,5 @@
 from tkinter import *
 from tkinter.messagebox import *
-root = Tk()
-root.title("Tunniplaan")
-root.geometry("805x525")
-
-#frameCnt = 48
-#frames = [PhotoImage(file = "gif1.gif",format = "gif -index %i" %(i)) for i in range(frameCnt)]
-#aken = Toplevel()
-#def update(ind):
-#    frame = frames[ind]
-#    ind += 1
-#    if ind == frameCnt:
-#        ind = 0
-#    label.configure(image = frame)
-#    aken.after(0, update, ind)
-#label = Label(aken)
-#label.pack()
-#aken.after(0, update, 0)
-#aken.mainloop()
 
 def failist_sõnastikusse():
     tund_kirjeldus = {}
@@ -36,14 +18,17 @@ def kirjeldus_aknasse(t:str):
         alam_root.title()
         lbl_kirjeldus = Label(alam_root, text = tund_kirjeldus[t]).pack()
         c = Canvas(alam_root,height = 1000, width = 1000)
-        file = PhotoImage(file = "gif1.gif")
+        file = PhotoImage(file = t)
         c.create_image(10,10,image = file,anchor = NW)
         c.pack()
         alam_root.mainloop()
     else:
         showinfo("Vastus","Kui ei taha, siis ei taha!")
 
-lbl = Label(root, text = "", borderwidth = 2, relief = "groove").grid(row = 0, column = 0, sticky = N+S+W+E)
+root = Tk()
+root.title("Tunniplaan")
+root.geometry("805x525")
+
 
 p = ["Esmaspäev","Teisipäev","Kolmapäev","Neljapäev","Reede"]
 j = 0
@@ -107,4 +92,18 @@ b24.grid(row = 9, column = 8, columnspan = 2, rowspan = 2, sticky = N+S+W+E)
 b25 = Button(root, text = "Ajalugu,\n inimgeo\n graafia \n ja inimese\n õpetus\n eesti keeles", bg = "wheat", relief = "raised", command = lambda:kirjeldus_aknasse("Ajalugu, inimgeograafia ja inimeseõpetus eesti keeles"))
 b25.grid(row = 9, column = 10, rowspan = 2, sticky = N+S+W+E)
 
+
+frameCnt = 48
+frames = [PhotoImage(file='gif1.gif',format = 'gif -index %i' %(i)) for i in range(frameCnt)]
+def update(ind):
+
+    frame = frames[ind]
+    ind += 1
+    if ind == frameCnt:
+        ind = 0
+    label.configure(image=frame)
+    root.after(100, update, ind)
+label = Label(root)
+label.place(x=500,y=500)
+root.after(0, update, 0)
 root.mainloop()
